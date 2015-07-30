@@ -1,0 +1,1 @@
+Copy these assets into your administrative area
