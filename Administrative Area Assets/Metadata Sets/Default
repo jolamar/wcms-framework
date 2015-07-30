@@ -1,0 +1,13 @@
+Name		Visibility	Required
+DisplayName	Visible		No
+Title		Inline		No
+Summary		Visible		No
+Teaser		Visible		No
+Keywords	Visible		No
+Description	Inline		No
+Author		Visible		No
+Start Date	Visible		No
+End Date	Visible		No
+Expiration	Visible		No
+Review Date	Visible		No
+

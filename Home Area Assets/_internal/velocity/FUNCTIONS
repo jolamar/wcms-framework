@@ -1,0 +1,14 @@
+## LIST OF MACROS/FUNCTIONS
+
+
+## REPLACE AMPERSANDS WITH HTML ENTITY
+#macro(htmlEntities $value)$value.replaceAll('&amp;', '&').replaceAll('&', '&amp;')#end
+
+## OUTPUT WYSIWYG HTML
+#macro(wysiwyg $content) $_SerializerTool.serialize($content, true) #end
+
+## FORMAT DATE
+#macro(date $date)
+
+$_DateTool.format("MMMMM dd yyyy", $_DateTool.toDate("m-d-y", $date)) 
+#end

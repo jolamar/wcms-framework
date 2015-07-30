@@ -1,0 +1,46 @@
+#set($posts = $_.query().indexableOnly(true).publishableOnly(true).byContentType('Post').maxResults(50).sortBy('startDate').sortDirection('desc').execute())
+
+<section class="content">
+    <div class="container">
+        <div class="unit one-fifth">
+            <div class="sticky-wrapper">
+                <nav role="navigation" class="nav-sidebar">
+                    <h2 class="h4-style bold">Posts</h2>
+                    <ul id="spy-nav">
+                        #foreach($post in $posts)
+                            ##skip the base asset
+                            #if($post.name != "post") 
+                                #set($title = $post.metadata.title.replaceAll('&amp;', '&').replaceAll('&', '&amp;'))
+                                #set($id = $title.replaceAll("[^A-Za-z0-9]", "").toLowerCase())
+                                <li><a href="#$id">$_DateTool.format("MMMMM dd, yyyy", $post.metadata.startDate)</a></li>
+                            #end
+                        #end
+                    </ul>
+                </nav>
+            </div> 
+        </div>
+        <div class="unit two-thirds last">
+            <ol class="articles">
+            #foreach($post in $posts)
+                #if($post.name != "post") 
+                    #set($title = $post.metadata.title.replaceAll('&amp;', '&').replaceAll('&', '&amp;'))
+                    #set($id = $title.replaceAll("[^A-Za-z0-9]", "").toLowerCase())
+                    #set($content = $post.metadata.teaser)
+                    #if(!$content || $content == "") 
+                        #set($content = $post.getStructuredDataNode("content").textValue)
+                    #end
+                    <li>
+                        <a href="$post.path">
+                            <article  id="$id">
+                                <h1 class="h2-style">$!title</h1>
+                                <p class="articles-date">$_DateTool.format("MMMMM dd yyyy", $post.metadata.startDate)</p>
+                                <p class="articles-intro">$!content</p>
+                            </article>
+                        </a>
+                    </li>
+                #end
+            #end
+            </ol>
+        </div>
+    </div>
+</section>

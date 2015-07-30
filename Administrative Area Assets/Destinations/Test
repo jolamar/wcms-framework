@@ -1,0 +1,8 @@
+Name: 					Test
+Directory: 				www
+Transport: 				Webtest
+Parent Container: 		/
+Activation: 			Destination is enabled but unchecked by default
+Output: 				Publish text with UTF-8 encoding
+Web URL: 				No Web URL specified
+Scheduled Publishing: 	Asset not set to publish on a schedule

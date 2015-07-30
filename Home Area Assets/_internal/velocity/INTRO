@@ -1,0 +1,102 @@
+#set($parent = $currentPage.parentFolder.name)
+#if($parent == "blog") 
+    #set($page = $_.locatePage("/blog/index", $currentPageSiteName))  
+#else 
+    #set($page = $currentPage)
+#end
+
+#set($intro = $page.getStructuredDataNode("intro"))
+
+#set($title = $intro.getChild("title").textValue)
+#set($lead = $intro.getChild("lead").textValue)
+#set($paragraph = $intro.getChild("paragraph").textValue)
+#set($buttonText = $intro.getChild("button").getChild("text").textValue)
+#set($buttonURL = $intro.getChild("button").getChild("url").textValue)
+#set($buttonColor = $intro.getChild("button").getChild("button-color").textValue)
+#if($buttonColor == "Light") 
+    #set($reverse = "reverse")
+#else
+    #set($reverse = "")
+#end
+
+
+##background
+#set($backgroundColor = $intro.getChild("background").getChild("color").textValue)
+#if($backgroundColor && $backgroundColor != "")
+    #set($backgroundColor = "${backgroundColor}-bg")
+#end
+
+#set($backgroundTextColor = $intro.getChild("background").getChild("text-color").textValue)
+#if($backgroundTextColor && $backgroundTextColor != "")
+    #if($backgroundTextColor == "Light")
+        #set($internal = "$!internal color: #FFFFFF;")
+        #set($external = "$!external color: #FFFFFF;")
+    #else
+        #set($internal = "$!internal color: #000000;")
+        #set($external = "$!external color: #000000;")
+    #end
+#end
+
+#set($backgroundBorderTop = $intro.getChild("background").getChild("border-top").textValue)
+#if($backgroundBorderTop && $backgroundBorderTop != "")
+    #set($internal = "$!internal border-top: 7px solid $backgroundBorderTop;")
+    #set($external = "$!external border-top: 7px solid $backgroundBorderTop;")
+#end
+
+[system-view:internal]
+#set($backgroundImage = $intro.getChild("background").getChild("image").asset.link)
+[/system-view:internal]
+[system-view:external]
+#set($backgroundImage = $intro.getChild("background").getChild("image").asset.path)
+[/system-view:external]
+#if($backgroundImage && $backgroundImage != "")
+    
+    #set($internal = "$!internal background-attachment:fixed; background-image: url(https://author.wcms.iu.edu/render/file.act?forceMime=true&amp;isImage=true&amp;type=file&amp;=$backgroundImage);")
+    #set($external = "$!external background-attachment:fixed; background-image: url($backgroundImage);")
+#end
+
+#set($backgroundRepeat = $intro.getChild("background").getChild("repeat").textValue)
+#if($backgroundRepeat && $backgroundRepeat != "")
+    #if($backgroundRepeat != "Repeat")
+        #set($internal = "$!internal background-size: cover;")
+        #set($external = "$!external background-size: cover;")
+    #end
+#end
+
+#if($title && $title != "")
+    
+    [system-view:external]
+    <section style="$!external" class="intro $backgroundColor">
+        <div class="container">
+            <div class="unit two-thirds">
+                #if($title)<h1>$!title.replaceAll('&amp;', '&').replaceAll('&', '&amp;')</h1>#end
+                
+                #if($lead)<p class="lead">$!lead.replaceAll('&amp;', '&').replaceAll('&', '&amp;')</p>#end
+                #if($paragraph)<p>$!paragraph.replaceAll('&amp;', '&').replaceAll('&', '&amp;')</p>#end
+                #if($buttonURL && $buttonText)<a class="button-primary $!reverse" href="$!buttonURL">$!buttonText</a>#end
+            </div>
+            <div class="unit one-fourth last">
+               
+            </div>
+        </div>
+    </section>
+    [/system-view:external]
+    
+    [system-view:internal]
+    <section style="$!internal" class="intro $backgroundColor">
+        <div class="container">
+            <div class="unit two-thirds">
+                #if($title)<h1>$!title.replaceAll('&amp;', '&').replaceAll('&', '&amp;')</h1>#end
+                
+                #if($lead)<p class="lead">$!lead.replaceAll('&amp;', '&').replaceAll('&', '&amp;')</p>#end
+                #if($paragraph)<p>$!paragraph.replaceAll('&amp;', '&').replaceAll('&', '&amp;')</p>#end
+                #if($buttonURL && $buttonText)<a class="button-primary $!reverse" href="$!buttonURL">$!buttonText</a>#end
+            </div>
+            <div class="unit one-fourth last">
+               
+            </div>
+        </div>
+    </section>
+    [/system-view:internal]
+
+#end

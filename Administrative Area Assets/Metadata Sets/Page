@@ -1,0 +1,19 @@
+Name		Visibility	Required
+DisplayName	Visible		No
+Title		Inline		No
+Summary		Visible		No
+Teaser		Visible		No
+Keywords	Visible		No
+Description	Inline		No
+Author		Visible		No
+Start Date	Inline		No
+End Date	Visible		No
+Expiration 	Visible		No
+Review Date	Visible		No
+
+--- Dynamic Fields ---
+Name			Label				Type	Required	Visibility
+nav-title		Navigation Title	Text	No			Inline
+show-in-nav		Show in navigation?	Radio	No			Inline
+show-in-sidebar	Show in sidebar?	Radio	No			Inline
+sidebar-title	Sidebar Title		Text	No			Inline

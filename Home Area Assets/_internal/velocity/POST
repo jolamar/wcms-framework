@@ -1,0 +1,76 @@
+<section class="content">
+    <div class="container">
+        <div class="unit one-fifth">
+            <div class="sticky-wrapper">
+                <nav role="navigation" class="nav-sidebar">
+                    <h2 class="h4-style bold">Other articles</h2>
+                    <ul id="spy-nav">
+                        #set($posts = $_.query().indexableOnly(true).publishableOnly(true).byContentType('Post').maxResults(50).sortBy('startDate').sortDirection('desc').execute())
+                        #foreach($post in $posts)
+                            ##skip the base asset
+                            #if($post.name != "post") 
+                                #set($title = $post.metadata.title.replaceAll('&amp;', '&').replaceAll('&', '&amp;'))
+                                #set($id = $title.replaceAll("[^A-Za-z0-9]", "").toLowerCase())
+                                #if($currentPage.identifer.id != $post.identifer.id)
+                                    <li><a href="$post.path">$!title</a></li>
+                                #else
+                                    <li id="active"><a href="$post.path">$!title</a></li>
+                                #end
+                                
+                                ##$_DateTool.format("MMMMM dd, yyyy", $post.metadata.startDate)
+                            #end
+                        #end
+                    </ul>
+                </nav>
+            </div> 
+        </div>
+        #set($startDate = $_DateTool.format("MMMMM dd yyyy", $currentPage.metadata.startDate))
+        #set($title = $currentPage.metadata.title)
+        #set($id = $title.replaceAll("[^A-Za-z0-9]", "").toLowerCase())
+        #set($content = $currentPage.getStructuredDataNode("content").textValue)
+        <div class="unit two-thirds last">
+            <article id="$!id">
+            <h1 class="h2-style">$!title</h1>
+            <p class="articles-date">$!startDate</p>
+            $!content
+            </article>
+            ##set($pages = $currentPage.parentFolder.children)
+            #set($pages = $_.query().byMetadataSet('Post').sortBy('startDate').execute())
+            <nav role="navigation" class="pagination">
+                <ul>
+                    #set($output = "")
+                    #set($prevFound = false)
+                    #set($currentFound = false)
+                    #set($nextFound = false)
+                    #set($prev = "")
+                    #set($next = "")
+                    #set($count = 0)
+                    #foreach($page in $pages)
+                        #if($page.name != 'index' && $page.name != 'post')
+                        #set($count = $count + 1)
+                        
+                            #set($title = $page.metadata.title.replaceAll('&amp;', '&').replaceAll('&', '&amp;'))
+                            #if($nextFound)
+                                #set($next = "<li style='float:right'><a href='$page.path'>$title &#187;</a></li>")
+                                #set($nextFound = false)
+                            #end
+                            ##set($title = $page.metadata.getDynamicField("sidebar-title").value.replaceAll('&amp;', '&').replaceAll('&', '&amp;'))
+                            #set($id = $title.replaceAll("[^A-Za-z0-9]", "").toLowerCase())
+                            #if($currentPage.identifer.id == $page.identifer.id)
+                                ##set($output = $output + "<li><a class='active' href='$page.path'>$count</a></li>")
+                                #set($prevFound = true)
+                                #set($currentFound = true)
+                                #set($nextFound = true)
+                            #end
+                            #if(!$prevFound)
+                                #set($prev = "<li><a href='$page.path'>&#171; $title</a></li>")
+                            #end
+                        #end
+                    #end
+                    $prev
+                    $next
+                </ul>
+            </nav> 
+        </div>
+    </div>
+</section>

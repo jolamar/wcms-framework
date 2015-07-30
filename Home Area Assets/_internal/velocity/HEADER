@@ -1,0 +1,31 @@
+<header class="site-header">
+    <div class="container">
+        <div class="unit one-fourth">
+            <div class="site-title">
+                #set($page = $_.locatePage("/index"))
+                <a class="site-title-link" href="/index">$page.metadata.title</a>
+            </div>
+        </div>
+        <div class="unit three-fourths nav-bg">
+            <a class="show-nav" href="#"><em class="fa fa-bars">&#160;</em></a>
+            <div class="site-nav" id="nav-toggle">
+                <nav class="nav-inline text-right" role="navigation">
+                    <ul>
+                        #set($pages = $_.query().byMetadataSet('Page').hasMetadata('show-in-nav', 'Yes').sortBy('startDate').execute())
+                        #foreach($page in $pages)
+                            ## if the page has a title
+                            #if($page.metadata.getDynamicField('nav-title').value && $page.metadata.getDynamicField('').value != "")
+                                ## if the current page add the active class
+                                #if($currentPage.identifer.id == $page.identifer.id)
+                                    <li class="active"><a href="/$page.path">$!page.metadata.getDynamicField('nav-title').value</a></li>
+                                #else
+                                    <li><a href="/$page.path">$page.metadata.getDynamicField('nav-title').value</a></li>
+                                #end
+                            #end
+                        #end
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>

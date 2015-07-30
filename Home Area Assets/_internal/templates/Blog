@@ -1,0 +1,29 @@
+<!--
+BRANDING: [Block] _internal/blocks/BRANDING
+HEADER: [Block] _internal/blocks/CSS
+INTRO: [Format] _internal/velocity/INTRO
+DEFAULT: [Format] _internal/velocity/BLOG
+FOOTER: [Block] _internal/blocks/FOOTER
+JAVASCRIPT: [Block] _internal/blocks/JAVASCRIPT
+JAVASCRIPT-ADDITIONAL: [Empty]
+--><!DOCTYPE html>
+<html>
+    <head>
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+        <title><system-page-title/></title>
+        <link href="https://assets.uits.iu.edu/favicon.ico" rel="shortcut icon" type="image/x-icon"/> 
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <system-page-meta-description/>
+        <system-page-meta-keywords/>
+        <system-region name="CSS"/>
+    </head>
+    <body class="style-page" cz-shortcut-listen="true">
+        <system-region name="BRANDING"/>
+        <system-region name="HEADER"/>
+        <system-region name="INTRO"/>
+        <system-region name="DEFAULT"/>
+        <system-region name="FOOTER"/>
+        <system-region name="JAVASCRIPT"/>
+    </body>
+</html>

@@ -1,0 +1,53 @@
+<system-data-structure>
+  <group identifier="intro" label="Intro">
+    <text identifier="title" label="Title"/>
+    <text multi-line="true" identifier="lead" label="Lead Paragraph"/>
+    <text multi-line="true" identifier="paragraph" label="Paragraph"/>
+    <group identifier="button" label="Button">
+      <text identifier="text" label="Text"/>
+      <text identifier="url" label="URL"/>
+      <text type="radiobutton" identifier="button-color" label="Button Color" default="Light">
+        <radio-item value="Light"/>
+        <radio-item value="Dark"/>
+      </text>
+    </group>
+    <group identifier="background" label="Background">
+      <text type="dropdown" identifier="color" label="Color">
+        <dropdown-item value="passion"/>
+        <dropdown-item value="crimson"/>
+        <dropdown-item value="pride"/>
+        <dropdown-item value="crimson-overkill"/>
+        <dropdown-item value="forest"/>
+        <dropdown-item value="green"/>
+        <dropdown-item value="shamrock"/>
+        <dropdown-item value="mint"/>
+        <dropdown-item value="midnight"/>
+        <dropdown-item value="thistle"/>
+        <dropdown-item value="blue"/>
+        <dropdown-item value="cornflower"/>
+        <dropdown-item value="majestic"/>
+        <dropdown-item value="plum"/>
+        <dropdown-item value="violet"/>
+        <dropdown-item value="lavender"/>
+        <dropdown-item value="gold"/>
+        <dropdown-item value="parchment"/>
+        <dropdown-item value="old-golde"/>
+        <dropdown-item value="cornsilk"/>
+        <dropdown-item value="rich-black"/>
+        <dropdown-item value="black-90"/>
+        <dropdown-item value="black-40"/>
+        <dropdown-item value="black-15"/>
+      </text>
+      <text type="radiobutton" identifier="text-color" label="Text Color" default="Light">
+        <radio-item value="Light"/>
+        <radio-item value="Dark"/>
+      </text>
+      <text identifier="border-top" label="Top Border Color"/>
+      <asset type="file" identifier="image" label="Image"/>
+      <text type="radiobutton" identifier="repeat" label="Repeat image?" default="Repeat">
+        <radio-item value="Repeat"/>
+        <radio-item value="Full width"/>
+      </text>
+    </group>
+  </group>
+</system-data-structure>
