@@ -1,100 +1,358 @@
-#set($parent = $currentPage.parentFolder.name)
-#if($parent == "blog") 
-    #set($page = $_.locatePage("/blog/index", $currentPageSiteName))  
-#else 
-    #set($page = $currentPage)
-#end
+#import('/_internal/velocity/FUNCTIONS')
 
-#set($intro = $page.getStructuredDataNode("intro"))
+#set($sections = $_XPathTool.selectNodes($contentRoot, "section"))
 
-#set($title = $intro.getChild("title").textValue)
-#set($lead = $intro.getChild("lead").textValue)
-#set($paragraph = $intro.getChild("paragraph").textValue)
-#set($buttonText = $intro.getChild("button").getChild("text").textValue)
-#set($buttonURL = $intro.getChild("button").getChild("url").textValue)
-#set($buttonColor = $intro.getChild("button").getChild("button-color").textValue)
-#if($buttonColor == "Light") 
-    #set($reverse = "reverse")
-#else
-    #set($reverse = "")
-#end
-
-
-##background
-#set($backgroundColor = $intro.getChild("background").getChild("color").textValue)
-#if($backgroundColor && $backgroundColor != "")
-    #set($backgroundColor = "${backgroundColor}-bg")
-#end
-
-#set($backgroundTextColor = $intro.getChild("background").getChild("text-color").textValue)
-#if($backgroundTextColor && $backgroundTextColor != "")
-    #if($backgroundTextColor == "Light")
-        #set($internal = "$!internal color: #FFFFFF;")
-        #set($external = "$!external color: #FFFFFF;")
+## sections
+#foreach($section in $sections)
+    #set($slice = $_XPathTool.selectSingleNode($section, "slice").value)
+    #if($slice == "Yes")
+        #set($slice = "slice")
     #else
-        #set($internal = "$!internal color: #000000;")
-        #set($external = "$!external color: #000000;")
+        #set($slice = "")
     #end
-#end
-
-#set($backgroundBorderTop = $intro.getChild("background").getChild("border-top").textValue)
-#if($backgroundBorderTop && $backgroundBorderTop != "")
-    #set($internal = "$!internal border-top: 7px solid $backgroundBorderTop;")
-    #set($external = "$!external border-top: 7px solid $backgroundBorderTop;")
-#end
-
-#set($backgroundImageInternal = $intro.getChild("background").getChild("image").asset.path)
-#set($backgroundImageExternal = "[system-asset]" + $intro.getChild("background").getChild("image").asset.path + "[/system-asset]")
-
-#if($backgroundImageInternal && $backgroundImageInternal != "") 
-    #set($internal = "$!internal background-attachment:fixed; background-image: url(https://author.wcms.iu.edu/render/file.act?forceMime=true&amp;isImage=true&amp;type=file&amp;path=$backgroundImageInternal);")
-#end
-#if($backgroundImageExternal && $backgroundImageExternal != "") 
-    #set($external = "$!external background-attachment:fixed; background-image: url($backgroundImageExternal);")
-#end
-
-#set($backgroundRepeat = $intro.getChild("background").getChild("repeat").textValue)
-#if($backgroundRepeat && $backgroundRepeat != "")
-    #if($backgroundRepeat != "Repeat")
-        #set($internal = "$!internal background-size: cover;")
-        #set($external = "$!external background-size: cover;")
-    #end
-#end
-
-#if($title && $title != "")
-    
-    [system-view:external]
-    <section style="$!external" class="intro $backgroundColor">
-        <div class="container">
-            <div class="unit two-thirds">
-                #if($title)<h1>$!title.replaceAll('&amp;', '&').replaceAll('&', '&amp;')</h1>#end
-                
-                #if($lead)<p class="lead">$!lead.replaceAll('&amp;', '&').replaceAll('&', '&amp;')</p>#end
-                #if($paragraph)<p>$!paragraph.replaceAll('&amp;', '&').replaceAll('&', '&amp;')</p>#end
-                #if($buttonURL && $buttonText)<a class="button-primary $!reverse" href="$!buttonURL">$!buttonText</a>#end
+    <section class="$!slice">
+        
+        ## containers
+        #set($containers = $_XPathTool.selectNodes($section, "container"))
+        #foreach($container in $containers)
+            <div class="container">
+                #set($units = $_XPathTool.selectNodes($container, "unit"))
+                #foreach($unit in $units)
+                    #set($width = $_XPathTool.selectSingleNode($unit, "width").value)
+                    
+                    <div class="unit $!width">
+                        #set($patterns = $_XPathTool.selectNodes($unit, "patternGroup"))
+                        #foreach($pattern in $patterns)
+                            #set($selected = $_XPathTool.selectSingleNode($pattern, "pattern").value)
+                            #if($selected == "Heading 1")
+                                <h1>$_XPathTool.selectSingleNode($pattern, "h1").value</h1>
+                            #elseif($selected == "Heading 2")
+                                <h2>$_XPathTool.selectSingleNode($pattern, "h2").value</h2>
+                            #elseif($selected == "Heading 3")
+                                <h3>$_XPathTool.selectSingleNode($pattern, "h3").value</h3>
+                            #elseif($selected == "Heading 4")
+                                <h4>$_XPathTool.selectSingleNode($pattern, "h4").value</h4>
+                            #elseif($selected == "Heading 5")
+                                <h5>$_XPathTool.selectSingleNode($pattern, "h5").value</h5>
+                            #elseif($selected == "Heading 6")
+                                <h6>$_XPathTool.selectSingleNode($pattern, "h6").value</h6>
+                            #elseif($selected == "Text")
+                                #set($text = $_XPathTool.selectSingleNode($pattern, "text"))
+                                $_SerializerTool.serialize($text, true)
+                            #elseif($selected == "Panel")
+                                #set($panel = $_XPathTool.selectSingleNode($pattern, "panel"))
+                                <div class="panel">
+                                $_SerializerTool.serialize($panel, true)
+                                </div>
+                            #elseif($selected == "List Grid")
+                                #set($items = $_XPathTool.selectNodes($pattern, "list-grid"))
+                                <ul class="list-grid-thirds">
+                                #foreach($item in $items)
+                                    <li>$_SerializerTool.serialize($item, true)</li>                               
+                                #end
+                                </ul>
+                            #elseif($selected == "Blockquote")
+                                <blockquote>$_XPathTool.selectSingleNode($pattern, "blockquote").value</blockquote>
+                            #elseif($selected == "Lead Paragraph")
+                                <p class="lead">$_XPathTool.selectSingleNode($pattern, "lead/text").value</p>
+                            #elseif($selected == "Preformatted")
+                                <pre>$_XPathTool.selectSingleNode($pattern, "preformatted/text").value</pre>
+                            #elseif($selected == "Primary Button")
+                                <a class="button-primary" href="${_XPathTool.selectSingleNode($pattern, "primary-button-group/primary-button-url").value}">$_XPathTool.selectSingleNode($pattern, "primary-button-group/primary-button-text").value</a>
+                            #elseif($selected == "Secondary Button")
+                                <a class="button-secondary" href="${_XPathTool.selectSingleNode($pattern, "secondary-button-group/secondary-button-url").value}">$_XPathTool.selectSingleNode($pattern, "secondary-button-group/secondary-button-text").value</a>
+                            #elseif($selected == "Button Group")
+                                #set($buttons = $_XPathTool.selectNodes($pattern, "button-group/button"))
+                                <ul class="button-group">
+                                #foreach($button in $buttons)
+                                    <li><a href="${_XPathTool.selectSingleNode($button, "button-group-url").value}">$_XPathTool.selectSingleNode($button, "button-group-text").value</a></li>
+                                #end
+                                </ul>
+                            #elseif($selected == "Figure Image")
+                                #set($path = $_XPathTool.selectSingleNode($pattern, "figure-image/image/path").value)
+                                #set($caption = $_XPathTool.selectSingleNode($pattern, "figure-image/caption").value)
+                                <figure class="img-figure">
+                                   <img src="$!path" />
+                                   <figcaption class="img-figure__caption">$!caption</figcaption> 
+                                </figure>
+                            #elseif($selected == "Circular Image")
+                                #set($path = $_XPathTool.selectSingleNode($pattern, "img-circular/path").value)
+                                <span class="img-circular">
+                                    <img src="$!path" />
+                                </span>
+                            #elseif($selected == "Sidebar Navigation")
+                                
+                                #set($source = $_XPathTool.selectSingleNode($pattern, "navigation/source").value)
+                                #if($source == "Automated")
+                                
+                                    #set($pages = $currentPage.parentFolder.children)
+                                    <nav role="navigation" class="nav-sidebar">
+                                        <ul>
+                                            #foreach($page in $pages)
+                                                #if($page.metadata.getDynamicField("show-in-sidebar").value == "Yes")
+                                                    #set($title = $page.metadata.title.replaceAll('&amp;', '&').replaceAll('&', '&amp;'))
+                                                    #set($title = $page.metadata.getDynamicField("sidebar-title").value.replaceAll('&amp;', '&').replaceAll('&', '&amp;'))
+                                                    #set($id = $title.replaceAll("[^A-Za-z0-9]", "").toLowerCase())
+                                                    #if($currentPage.identifer.id != $page.identifer.id)
+                                                        <li><a href="$page.path">$!title</a></li>
+                                                    #else
+                                                        <li><a class="active" href="$page.path">$!title</a></li>
+                                                    #end
+                                                #end
+                                            #end
+                                        </ul>
+                                    </nav> 
+                                    
+                                #else
+                                    #set($items = $_XPathTool.selectNodes($pattern, "navigation/item"))
+                                    <nav role="navigation" class="nav-sidebar">
+                                    <ul>
+                                        #foreach($item in $items)
+                                            #set($label = "")
+                                            #set($label = $_XPathTool.selectSingleNode($item, "label").value)
+                                            #set($url = "")
+                                            #set($url = $_XPathTool.selectSingleNode($item, "url").value)
+                                            #set($active = false)
+                                            #set($active = $_XPathTool.selectSingleNode($item, "active/value").value)
+                                            <li><a #if($active) class="active" #end href="$!{url}">#htmlEntities($!label)</a></li>
+                                        #end
+                                    </ul>
+                                </nav> 
+                                #end
+                                
+                                
+                            #elseif($selected == "Pagination")
+                            
+                                #set($source = $_XPathTool.selectSingleNode($pattern, "navigation/source").value)
+                                #if($source == "Automated")
+                                
+                                    #set($pages = $currentPage.parentFolder.children)
+                                    <nav role="navigation" class="pagination">
+                                        <ul>
+                                            #set($output = "")
+                                            #set($prevFound = false)
+                                            #set($currentFound = false)
+                                            #set($nextFound = false)
+                                            #set($prev = "<li>&#171; Previous</li>")
+                                            #set($next = "<li>Next &#187;</li>")
+                                            #foreach($page in $pages)
+                                                #if($page.metadata.getDynamicField("show-in-sidebar").value == "Yes")
+                                                    #if($nextFound)
+                                                        #set($next = "<li><a href='$page.path'>Next &#187;</a></li>")
+                                                        #set($nextFound = false)
+                                                    #end
+                                                    #set($title = $page.metadata.title.replaceAll('&amp;', '&').replaceAll('&', '&amp;'))
+                                                    #set($title = $page.metadata.getDynamicField("sidebar-title").value.replaceAll('&amp;', '&').replaceAll('&', '&amp;'))
+                                                    #set($id = $title.replaceAll("[^A-Za-z0-9]", "").toLowerCase())
+                                                    #if($currentPage.identifer.id != $page.identifer.id)
+                                                        #set($output = $output + "<li><a href='$page.path'>$!title</a></li>")
+                                                    #else
+                                                        #set($output = $output + "<li><a class='active' href='$page.path'>$!title</a></li>")
+                                                        #set($prevFound = true)
+                                                        #set($currentFound = true)
+                                                        #set($nextFound = true)
+                                                    #end
+                                                    #if(!$prevFound)
+                                                        #set($prev = "<li><a href='$page.path'>&#171; Previous</a></li>")
+                                                    #end
+                                                #end
+                                            #end
+                                            $prev
+                                            $output
+                                            $next
+                                        </ul>
+                                    </nav> 
+                                    
+                                #else    
+                                    #set($items = $_XPathTool.selectNodes($pattern, "navigation/item"))
+                                    <nav role="navigation" class="pagination">
+                                        <ul>
+                                            #foreach($item in $items)
+                                                #set($label = "")
+                                                #set($label = $_XPathTool.selectSingleNode($item, "label").value)
+                                                #set($url = "")
+                                                #set($url = $_XPathTool.selectSingleNode($item, "url").value)
+                                                #set($active = false)
+                                                #set($active = $_XPathTool.selectSingleNode($item, "active/value").value)
+                                                <li><a #if($active) class="active" #end href="$!{url}">#htmlEntities($!label)</a></li>
+                                            #end
+                                        </ul>
+                                    </nav>  
+                                #end
+                            #elseif($selected == "Breadcrumbs")
+                                #set($source = $_XPathTool.selectSingleNode($pattern, "navigation/source").value)
+                                #if($source == "Automated")
+                                    <nav role="navigation" class="breadcrumbs">
+                                        <ul>
+                                            #if($currentPage.parentFolder.parentFolder.path)
+                                                #set($page = $_.locatePage("${currentPage.parentFolder.parentFolder.path}index"))
+                                                #set($title = $page.metadata.title.replaceAll('&amp;', '&').replaceAll('&', '&amp;'))
+                                                #set($title = $page.metadata.getDynamicField("sidebar-title").value.replaceAll('&amp;', '&').replaceAll('&', '&amp;'))
+                                                <li><a href="$page.path">Home</a></li>
+                                            #end                                            
+                                            
+                                            
+                                            #if($currentPage.parentFolder.path)
+                                                #set($page = $_.locatePage("${currentPage.parentFolder.path}/index"))
+                                                #set($title = $page.metadata.title.replaceAll('&amp;', '&').replaceAll('&', '&amp;'))
+                                                #set($title = $page.metadata.getDynamicField("sidebar-title").value.replaceAll('&amp;', '&').replaceAll('&', '&amp;'))
+                                                #if($currentPage.name != 'index')
+                                                    <li><a href="$page.path">$!title</a></li>
+                                                #else
+                                                    <li><a class="active" href="$page.path">$!title</a></li>
+                                                #end
+                                                
+                                            #end 
+                                            
+                                            #if($currentPage.name != 'index')
+                                                #set($title = $currentPage.metadata.title.replaceAll('&amp;', '&').replaceAll('&', '&amp;'))
+                                                #set($title = $currentPage.metadata.getDynamicField("sidebar-title").value.replaceAll('&amp;', '&').replaceAll('&', '&amp;'))
+                                                <li><a class="active" href="$currentPage.path">$!title</a></li>
+                                            #end
+                                            
+                                        </ul>
+                                    </nav> 
+                                    
+                                #else
+                            
+                                    #set($items = $_XPathTool.selectNodes($pattern, "navigation/item"))
+                                    <nav role="navigation" class="breadcrumbs">
+                                        <ul>
+                                            #foreach($item in $items)
+                                                #set($label = "")
+                                                #set($label = $_XPathTool.selectSingleNode($item, "label").value)
+                                                #set($url = "")
+                                                #set($url = $_XPathTool.selectSingleNode($item, "url").value)
+                                                #set($active = false)
+                                                #set($active = $_XPathTool.selectSingleNode($item, "active/value").value)
+                                                <li><a #if($active) class="active" #end href="$!{url}">#htmlEntities($!label)</a></li>
+                                            #end
+                                        </ul>
+                                    </nav>   
+                                #end
+                            #elseif($selected == "Metadata")
+                                #set($descriptions = $_XPathTool.selectNodes($pattern, "metadata/description"))
+                                <dl class="metadata">
+                                    #foreach($description in $descriptions)
+                                        #set($term = "")
+                                        #set($term = $_XPathTool.selectSingleNode($description, "term").value)
+                                        #set($description = $_XPathTool.selectSingleNode($description, "description"))
+                                        <dt>$!term</dt>
+                                        <dd>#wysiwyg($!description)</dd>
+                                    #end
+                                </dl>
+                             #elseif($selected == "Articles")
+                                #set($articles = $_XPathTool.selectNodes($pattern, "articles/article"))
+                                <ol class="articles">
+                                    #foreach($article in $articles)
+                                        <li>
+                                            #set($url = "")
+                                            #set($url = $_XPathTool.selectSingleNode($article, "url").value)
+                                            #set($title = "")
+                                            #set($title = $_XPathTool.selectSingleNode($article, "title").value)
+                                            #set($date = "")
+                                            #set($date = $_XPathTool.selectSingleNode($article, "date").value)
+                                            #set($intro = "")
+                                            #set($intro = $_XPathTool.selectSingleNode($article, "intro").value)
+                                            <a href="$!{url}">
+                                                <article>
+                                                    <h1 class="h2-style">#htmlEntities($!title)</h1>
+                                                    <p class="articles-date">#date($!date)</p>
+                                                    <p class="articles-intro">$!intro</p>
+                                                </article>
+                                            </a>
+                                        </li>
+                                    #end
+                                </ol>
+                            #elseif($selected == "Simple Form")
+                                #set($method = $_XPathTool.selectSingleNode($pattern, "simple-form/method").value)  
+                                #set($action = $_XPathTool.selectSingleNode($pattern, "simple-form/action").value)  
+                                #set($fields = $_XPathTool.selectNodes($pattern, "simple-form/field"))
+                                <form action="$!{action}" method="$!{method}">
+                                    <div class="container">
+                                    #foreach($field in $fields)
+                                        #set($width = "") 
+                                        #set($width = $_XPathTool.selectSingleNode($field, "width").value)   
+                                        
+                                        <div class="unit $!{width}">
+                                            #set($type = "") 
+                                            #set($type = $_XPathTool.selectSingleNode($field, "type").value)   
+                                            
+                                            ## Text input
+                                            #if($type == "text")
+                                                #set($label = "")
+                                                #set($label = $_XPathTool.selectSingleNode($field, "text/label").value)
+                                                #set($name = "")
+                                                #set($name = $_XPathTool.selectSingleNode($field, "text/name").value)
+                                                #set($value = "")
+                                                #set($value = $_XPathTool.selectSingleNode($field, "text/value").value)
+                                                #set($placeholder = false)
+                                                #set($placeholder = $_XPathTool.selectSingleNode($field, "text/placeholder").value)
+                                                #set($class = "")
+                                                #set($class = $_XPathTool.selectSingleNode($field, "text/class").value)
+                                                <label for="$!{name}">$!label</label>
+                                                <input type="text" id="$!{name}" name="$!{name}" class="auto-select $!{class}" #if($placeholder) placeholder="$!{placeholder}" #end />  
+                                            #end
+                                            
+                                            ## Textarea
+                                            #if($type == "textarea")
+                                                #set($label = "")
+                                                #set($label = $_XPathTool.selectSingleNode($field, "textarea/label").value)
+                                                #set($name = "")
+                                                #set($name = $_XPathTool.selectSingleNode($field, "textarea/name").value)
+                                                #set($value = "")
+                                                #set($value = $_XPathTool.selectSingleNode($field, "textarea/value").value)
+                                                #set($placeholder = false)
+                                                #set($placeholder = $_XPathTool.selectSingleNode($field, "textarea/placeholder").value)
+                                                #set($class = "")
+                                                #set($class = $_XPathTool.selectSingleNode($field, "textarea/class").value)
+                                                <label for="$!{name}">$!label</label>
+                                                <textarea id="$!{name}" class="auto-select $!{class}" name="$!{name}">$!placeholder</textarea>  
+                                            #end
+                                            
+                                            ## Dropdowns
+                                            #if($type == "dropdown")
+                                                #set($label = "")
+                                                #set($label = $_XPathTool.selectSingleNode($field, "dropdown/label").value)
+                                                #set($name = "")
+                                                #set($name = $_XPathTool.selectSingleNode($field, "dropdown/name").value)
+                                                #set($id = "")
+                                                #set($id = $_XPathTool.selectSingleNode($field, "dropdown/id").value)
+                                                #set($options = false)
+                                                #set($options = $_XPathTool.selectNodes($field, "dropdown/options"))
+                                                <label for="$!{id}">$!label</label>
+                                                <select id="$!{id}" name="$!{name}">
+                                                    #foreach($option in $options)
+                                                        #set($label = "")
+                                                        #set($label = $_XPathTool.selectSingleNode($option, "label").value)
+                                                        #set($value = "")
+                                                        #set($value = $_XPathTool.selectSingleNode($option, "value").value)
+                                                        <option value="$!{value}">$!label</option>
+                                                    #end
+                                                </select>   
+                                            #end
+                                            
+                                            ## Submit button
+                                            #if($type == "submit")
+                                                #set($name = "")
+                                                #set($name = $_XPathTool.selectSingleNode($field, "submit/name").value)
+                                                #set($value = "")
+                                                #set($value = $_XPathTool.selectSingleNode($field, "submit/value").value)
+                                               
+                                                <input type="submit" id="$!{name}" name="$!{name}" value="$!{value}" />  
+                                            #end
+                                                  
+                                        </div>
+                                    #end
+                                    </div>
+                                </form>    
+                            #end
+                        #end
+                    </div>
+                    
+                    
+                #end
             </div>
-            <div class="unit one-fourth last">
-               
-            </div>
-        </div>
+        #end
     </section>
-    [/system-view:external]
-    
-    [system-view:internal]
-    <section style="$!internal" class="intro $backgroundColor">
-        <div class="container">
-            <div class="unit two-thirds">
-                #if($title)<h1>$!title.replaceAll('&amp;', '&').replaceAll('&', '&amp;')</h1>#end
-                
-                #if($lead)<p class="lead">$!lead.replaceAll('&amp;', '&').replaceAll('&', '&amp;')</p>#end
-                #if($paragraph)<p>$!paragraph.replaceAll('&amp;', '&').replaceAll('&', '&amp;')</p>#end
-                #if($buttonURL && $buttonText)<a class="button-primary $!reverse" href="$!buttonURL">$!buttonText</a>#end
-            </div>
-            <div class="unit one-fourth last">
-               
-            </div>
-        </div>
-    </section>
-    [/system-view:internal]
-
 #end
