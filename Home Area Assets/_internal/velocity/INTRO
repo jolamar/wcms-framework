@@ -43,16 +43,14 @@
     #set($external = "$!external border-top: 7px solid $backgroundBorderTop;")
 #end
 
-[system-view:internal]
-#set($backgroundImage = $intro.getChild("background").getChild("image").asset.link)
-[/system-view:internal]
-[system-view:external]
-#set($backgroundImage = $intro.getChild("background").getChild("image").asset.path)
-[/system-view:external]
-#if($backgroundImage && $backgroundImage != "")
-    
-    #set($internal = "$!internal background-attachment:fixed; background-image: url(https://author.wcms.iu.edu/render/file.act?forceMime=true&amp;isImage=true&amp;type=file&amp;=$backgroundImage);")
-    #set($external = "$!external background-attachment:fixed; background-image: url($backgroundImage);")
+#set($backgroundImageInternal = $intro.getChild("background").getChild("image").asset.path)
+#set($backgroundImageExternal = "[system-asset]" + $intro.getChild("background").getChild("image").asset.path + "[/system-asset]")
+
+#if($backgroundImageInternal && $backgroundImageInternal != "") 
+    #set($internal = "$!internal background-attachment:fixed; background-image: url(https://author.wcms.iu.edu/render/file.act?forceMime=true&amp;isImage=true&amp;type=file&amp;path=$backgroundImageInternal);")
+#end
+#if($backgroundImageExternal && $backgroundImageExternal != "") 
+    #set($external = "$!external background-attachment:fixed; background-image: url($backgroundImageExternal);")
 #end
 
 #set($backgroundRepeat = $intro.getChild("background").getChild("repeat").textValue)
