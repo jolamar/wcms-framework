@@ -291,7 +291,7 @@
                                                 #set($class = "")
                                                 #set($class = $_XPathTool.selectSingleNode($field, "text/class").value)
                                                 <label for="$!{name}">$!label</label>
-                                                <input type="text" id="$!{name}" class="auto-select $!{class}" #if($placeholder) placeholder="$!{placeholder}" #end />  
+                                                <input type="text" id="$!{name}" name="$!{name}" class="auto-select $!{class}" #if($placeholder) placeholder="$!{placeholder}" #end />  
                                             #end
                                             
                                             ## Textarea
