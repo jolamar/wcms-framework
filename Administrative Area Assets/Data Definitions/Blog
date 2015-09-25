@@ -15,28 +15,26 @@
       <text type="dropdown" identifier="color" label="Color">
         <dropdown-item value="passion"/>
         <dropdown-item value="crimson"/>
-        <dropdown-item value="pride"/>
-        <dropdown-item value="crimson-overkill"/>
-        <dropdown-item value="forest"/>
-        <dropdown-item value="green"/>
-        <dropdown-item value="shamrock"/>
-        <dropdown-item value="mint"/>
+        <dropdown-item value="crimson-dark"/>
+        <dropdown-item value="mahogany"/>
+        <dropdown-item value="mahogany-light"/>
+        <dropdown-item value="mahogany-dark"/>
         <dropdown-item value="midnight"/>
-        <dropdown-item value="thistle"/>
-        <dropdown-item value="blue"/>
-        <dropdown-item value="cornflower"/>
+        <dropdown-item value="midnight-light"/>
+        <dropdown-item value="midnight-dark"/>
         <dropdown-item value="majestic"/>
-        <dropdown-item value="plum"/>
-        <dropdown-item value="violet"/>
-        <dropdown-item value="lavender"/>
-        <dropdown-item value="gold"/>
-        <dropdown-item value="parchment"/>
-        <dropdown-item value="old-golde"/>
-        <dropdown-item value="cornsilk"/>
-        <dropdown-item value="rich-black"/>
-        <dropdown-item value="black-90"/>
-        <dropdown-item value="black-40"/>
-        <dropdown-item value="black-15"/>
+        <dropdown-item value="majestic-light"/>
+        <dropdown-item value="majestic-dark"/>
+        <dropdown-item value="leather"/>
+        <dropdown-item value="leather-light"/>
+        <dropdown-item value="leather-dark"/>
+        <dropdown-item value="mint"/>
+        <dropdown-item value="mint-light"/>
+        <dropdown-item value="mint-dark"/>
+        <dropdown-item value="gray"/>
+        <dropdown-item value="dark-gray"/>
+        <dropdown-item value="black"/>
+        <dropdown-item value="full-black"/>
       </text>
       <text type="radiobutton" identifier="text-color" label="Text Color" default="Light">
         <radio-item value="Light"/>
