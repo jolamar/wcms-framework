@@ -1,234 +1,282 @@
 <system-data-structure>
-  <group identifier="intro" label="Intro" collapsed="true">
-    <text identifier="title" label="Title"/>
-    <text multi-line="true" identifier="lead" label="Lead Paragraph"/>
-    <text multi-line="true" identifier="paragraph" label="Paragraph"/>
-    <group identifier="button" label="Button">
-      <text identifier="text" label="Text"/>
-      <text identifier="url" label="URL"/>
-      <text type="radiobutton" identifier="button-color" label="Button Color" default="Light">
-        <radio-item value="Light"/>
-        <radio-item value="Dark"/>
-      </text>
-    </group>
-    <group identifier="background" label="Background">
-      <text type="dropdown" identifier="color" label="Color">
-        <dropdown-item value="passion"/>
-        <dropdown-item value="crimson"/>
-        <dropdown-item value="pride"/>
-        <dropdown-item value="crimson-overkill"/>
-        <dropdown-item value="forest"/>
-        <dropdown-item value="green"/>
-        <dropdown-item value="shamrock"/>
-        <dropdown-item value="mint"/>
-        <dropdown-item value="midnight"/>
-        <dropdown-item value="thistle"/>
-        <dropdown-item value="blue"/>
-        <dropdown-item value="cornflower"/>
-        <dropdown-item value="majestic"/>
-        <dropdown-item value="plum"/>
-        <dropdown-item value="violet"/>
-        <dropdown-item value="lavender"/>
-        <dropdown-item value="gold"/>
-        <dropdown-item value="parchment"/>
-        <dropdown-item value="old-golde"/>
-        <dropdown-item value="cornsilk"/>
-        <dropdown-item value="rich-black"/>
-        <dropdown-item value="black-90"/>
-        <dropdown-item value="black-40"/>
-        <dropdown-item value="black-15"/>
-      </text>
-      <text type="radiobutton" identifier="text-color" label="Text Color" default="Light">
-        <radio-item value="Light"/>
-        <radio-item value="Dark"/>
-      </text>
-      <text identifier="border-top" label="Top Border Color"/>
-      <asset type="file" identifier="image" label="Image"/>
-      <text type="radiobutton" identifier="repeat" label="Repeat image?" default="Repeat">
-        <radio-item value="Repeat"/>
-        <radio-item value="Full width"/>
-      </text>
-    </group>
-  </group>
-  <group identifier="section" label="Section" multiple="true">
-    <text type="checkbox" identifier="slice" label="Slice?" help-text="We use these to divide the page vertically — for example, by adding a contrasting background color to create emphasis on a part of the page.">
-      <checkbox-item value="Yes"/>
-    </text>
-    <group identifier="container" label="Container" multiple="true">
-      <group identifier="unit" label="Unit" multiple="true">
-        <text type="dropdown" identifier="width" label="Unit Width" default="whole">
-          <dropdown-item value="whole"/>
-          <dropdown-item value="half"/>
-          <dropdown-item value="one-third"/>
-          <dropdown-item value="two-thirds"/>
-          <dropdown-item value="one-fourth"/>
-          <dropdown-item value="three-fourths"/>
-          <dropdown-item value="one-fifth"/>
-          <dropdown-item value="two-fifths"/>
-          <dropdown-item value="three-fifths"/>
-          <dropdown-item value="four-fifths"/>
-        </text>
-        <group identifier="patternGroup" label="Pattern" multiple="true">
-          <text type="dropdown" identifier="pattern" label="Pattern">
-            <dropdown-item value="Text" show-fields="section/container/unit/patternGroup/text"/>
-            <dropdown-item value="Heading 1" show-fields="section/container/unit/patternGroup/h1"/>
-            <dropdown-item value="Heading 2" show-fields="section/container/unit/patternGroup/h2"/>
-            <dropdown-item value="Heading 3" show-fields="section/container/unit/patternGroup/h3"/>
-            <dropdown-item value="Heading 4" show-fields="section/container/unit/patternGroup/h4"/>
-            <dropdown-item value="Heading 5" show-fields="section/container/unit/patternGroup/h5"/>
-            <dropdown-item value="Heading 6" show-fields="section/container/unit/patternGroup/h6"/>
-            <dropdown-item value="Blockquote" show-fields="section/container/unit/patternGroup/blockquote"/>
-            <dropdown-item value="Primary Button" show-fields="section/container/unit/patternGroup/primary-button-group"/>
-            <dropdown-item value="Secondary Button" show-fields="section/container/unit/patternGroup/secondary-button-group"/>
-            <dropdown-item value="Button Group" show-fields="section/container/unit/patternGroup/button-group"/>
-            <dropdown-item value="Panel" show-fields="section/container/unit/patternGroup/panel"/>
-            <dropdown-item value="Circular Image" show-fields="section/container/unit/patternGroup/img-circular"/>
-            <dropdown-item value="List Grid" show-fields="section/container/unit/patternGroup/list-grid"/>
-            <dropdown-item value="Simple Form" show-fields="section/container/unit/patternGroup/simple-form"/>
-            <dropdown-item value="Figure Image" show-fields="section/container/unit/patternGroup/figure-image"/>
-            <dropdown-item value="Sidebar Navigation" show-fields="section/container/unit/patternGroup/navigation"/>
-            <dropdown-item value="Pagination" show-fields="section/container/unit/patternGroup/navigation"/>
-            <dropdown-item value="Breadcrumbs" show-fields="section/container/unit/patternGroup/navigation"/>
-            <dropdown-item value="Metadata" show-fields="section/container/unit/patternGroup/metadata"/>
-            <dropdown-item value="Articles" show-fields="section/container/unit/patternGroup/articles"/>
-            <dropdown-item value="Preformatted" show-fields="section/container/unit/patternGroup/preformatted"/>
-            <dropdown-item value="Lead Paragraph" show-fields="section/container/unit/patternGroup/lead"/>
-          </text>
-          <text identifier="h1" label="Heading 1"/>
-          <text identifier="h2" label="Heading 2"/>
-          <text identifier="h3" label="Heading 3"/>
-          <text identifier="h4" label="Heading 4"/>
-          <text identifier="h5" label="Heading 5"/>
-          <text identifier="h6" label="Heading 6"/>
-          <text wysiwyg="true" identifier="text" label="Text"/>
-          <text wysiwyg="true" identifier="panel" label="Panel" default="This is a panel. Panels are used to add some emphasis to a piece of content." help-text="A panel is used to add emphasis to a piece of content or navigation. The .panel class will remove the top and bottom margins from the first and last child elements of anything you put inside of it."/>
-          <text wysiwyg="true" identifier="list-grid" label="List Grid" multiple="true" maximum-number="4" minimum-number="3"/>
-          <text multi-line="true" identifier="blockquote" label="Blockquote"/>
-          <group identifier="primary-button-group" label="Primary Button">
-            <text identifier="primary-button-text" label="Text"/>
-            <text identifier="primary-button-url" label="URL"/>
-          </group>
-          <group identifier="secondary-button-group" label="Secondary Button">
-            <text identifier="secondary-button-text" label="Text"/>
-            <text identifier="secondary-button-url" label="URL"/>
-          </group>
-          <group identifier="button-group" label="Button Group">
-            <group identifier="button" label="Button" multiple="true">
-              <text identifier="button-group-text" label="Text"/>
-              <text identifier="button-group-url" label="URL"/>
-            </group>
-          </group>
-          <asset type="file" identifier="img-circular" label="Circular Image" help-text="Will make an image circular"/>
-          <group identifier="figure-image" label="Figure Image">
-            <asset type="file" identifier="image" label="Image"/>
-            <text identifier="caption" label="Caption"/>
-          </group>
-          <group identifier="simple-form" label="Simple Form">
-            <text type="radiobutton" identifier="method" label="Method" default="POST">
-              <radio-item value="POST"/>
-              <radio-item value="GET"/>
-            </text>
-            <text identifier="action" label="Action"/>
-            <group identifier="field" label="Field" multiple="true">
-              <text type="dropdown" identifier="type" label="Type">
-                <dropdown-item value="text" show-fields="section/container/unit/patternGroup/simple-form/field/text"/>
-                <dropdown-item value="checkbox" show-fields="section/container/unit/patternGroup/simple-form/field/checkboxes"/>
-                <dropdown-item value="radio" show-fields="section/container/unit/patternGroup/simple-form/field/radiobuttons"/>
-                <dropdown-item value="textarea" show-fields="section/container/unit/patternGroup/simple-form/field/textarea"/>
-                <dropdown-item value="dropdown" show-fields="section/container/unit/patternGroup/simple-form/field/dropdown"/>
-                <dropdown-item value="submit" show-fields="section/container/unit/patternGroup/simple-form/field/submit"/>
-              </text>
-              <text type="dropdown" identifier="width" label="Field Width" default="whole">
-                <dropdown-item value="whole"/>
-                <dropdown-item value="half"/>
-                <dropdown-item value="one-third"/>
-                <dropdown-item value="two-thirds"/>
-                <dropdown-item value="one-fourth"/>
-                <dropdown-item value="three-fourths"/>
-                <dropdown-item value="one-fifth"/>
-                <dropdown-item value="two-fifths"/>
-                <dropdown-item value="three-fifths"/>
-                <dropdown-item value="four-fifths"/>
-              </text>
-              <group identifier="text" label="Text Input">
-                <text identifier="label" label="Label"/>
-                <text identifier="name" label="Name"/>
-                <text identifier="value" label="Value"/>
-                <text identifier="placeholder" label="Placeholder"/>
-                <text identifier="class" label="Class (optional)"/>
-              </group>
-              <group identifier="checkboxes" label="Checkboxes">
-                <text identifier="fieldset" label="Fieldset Label"/>
-                <text identifier="name" label="Name"/>
-                <group identifier="checkbox" label="Checkbox" multiple="true">
-                  <text identifier="label" label="Label"/>
-                  <text identifier="id" label="ID"/>
-                </group>
-              </group>
-              <group identifier="radiobuttons" label="Radio Buttons">
-                <text identifier="fieldset" label="Fieldset Label"/>
-                <text identifier="name" label="Name"/>
-                <group identifier="radiobutton" label="Radio Button" multiple="true">
-                  <text identifier="Label"/>
-                  <text identifier="id" label="ID"/>
-                </group>
-              </group>
-              <group identifier="textarea" label="Textarea">
-                <text identifier="label" label="Label"/>
-                <text identifier="name" label="Name"/>
-                <text multi-line="true" identifier="placeholder" label="Placeholder"/>
-                <text identifier="class" label="Class (optional)"/>
-              </group>
-              <group identifier="dropdown" label="Dropdown">
-                <text identifier="label" label="Label"/>
-                <text identifier="name" label="Name"/>
-                <text identifier="id" label="ID"/>
-                <group identifier="options" label="Options" multiple="true">
-                  <text identifier="label" label="Label" help-text="The label that's displayed in the dropdown"/>
-                  <text identifier="value" label="Value" help-text="The value that gets submitted"/>
-                </group>
-              </group>
-              <group identifier="submit" label="Submit Button">
-                <text identifier="name" label="Name"/>
-                <text identifier="value" label="Value"/>
-              </group>
-            </group>
-          </group>
-          <group identifier="navigation" label="Navigation">
-            <text type="radiobutton" identifier="source" label="Data source" default="Custom" help-text="Do you want to enter values or have the navigation generated automatically based on metadata">
-              <radio-item value="Automated"/>
-              <radio-item value="Custom" show-fields="section/container/unit/patternGroup/navigation/item"/>
-            </text>
-            <group identifier="item" label="Item" multiple="true">
-              <text identifier="label" label="Label"/>
-              <text identifier="url" label="URL"/>
-              <text type="checkbox" identifier="active" label="Active?">
+    <group identifier="intro" label="Intro">
+        <text identifier="title" label="Title"/>
+        <text multi-line="true" identifier="lead" label="Lead Paragraph"/>
+        <text multi-line="true" identifier="paragraph" label="Paragraph"/>
+        <group identifier="button" label="Button">
+            <text identifier="text" label="Text"/>
+            <text identifier="url" label="URL"/>
+            <text type="checkbox" identifier="new-window" label="Open in new window">
                 <checkbox-item value="Yes"/>
-              </text>
-            </group>
-          </group>
-          <group identifier="metadata" label="Metadata">
-            <group identifier="description" label="Description" multiple="true">
-              <text identifier="term" label="Term"/>
-              <text wysiwyg="true" identifier="description" label="Description"/>
-            </group>
-          </group>
-          <group identifier="articles" label="Articles">
-            <group identifier="article" label="Article" multiple="true">
-              <text identifier="url" label="URL"/>
-              <text identifier="title" label="Title"/>
-              <text type="calendar" identifier="date" label="Date"/>
-              <text multi-line="true" identifier="intro" label="Intro"/>
-            </group>
-          </group>
-          <group identifier="preformatted" label="Preformatted text">
-            <text multi-line="true" identifier="text" label="Text"/>
-          </group>
-          <group identifier="lead" label="Lead paragraph">
-            <text multi-line="true" identifier="text" label="Text" default="Use this for introductory paragraphs or statements. Try to stick to one per page."/>
-          </group>
+            </text>
         </group>
-      </group>
+        <group identifier="background" label="Background">
+            <text type="dropdown" identifier="color" label="Color">
+                <dropdown-item value="passion"/>
+                <dropdown-item value="crimson"/>
+                <dropdown-item value="crimson-dark"/>
+                <dropdown-item value="mahogany"/>
+                <dropdown-item value="mahogany-light"/>
+                <dropdown-item value="mahogany-dark"/>
+                <dropdown-item value="midnight"/>
+                <dropdown-item value="midnight-light"/>
+                <dropdown-item value="midnight-dark"/>
+                <dropdown-item value="majestic"/>
+                <dropdown-item value="majestic-light"/>
+                <dropdown-item value="majestic-dark"/>
+                <dropdown-item value="leather"/>
+                <dropdown-item value="leather-light"/>
+                <dropdown-item value="leather-dark"/>
+                <dropdown-item value="mint"/>
+                <dropdown-item value="mint-light"/>
+                <dropdown-item value="mint-dark"/>
+                <dropdown-item value="gray"/>
+                <dropdown-item value="dark-gray"/>
+                <dropdown-item value="black"/>
+                <dropdown-item value="full-black"/>
+            </text>
+            <text type="radiobutton" identifier="text-color" label="Text Color" default="Dark">
+                <radio-item value="Light"/>
+                <radio-item value="Dark"/>
+            </text>
+            <text identifier="border-top" label="Top Border Color"/>
+            <asset type="file" identifier="image" label="Image"/>
+            <text type="radiobutton" identifier="repeat" label="Repeat image?" default="Repeat">
+                <radio-item value="Repeat"/>
+                <radio-item value="Full width"/>
+            </text>
+        </group>
     </group>
-  </group>
+    <group identifier="section" label="Section" multiple="true">
+        <text type="checkbox" identifier="slice" label="Background?" help-text="We use these to divide the page vertically — for example, to create emphasis on a part of the page.">
+            <checkbox-item value="Yes" show-fields="section/section-background"/>
+        </text>
+        <group identifier="section-background" label="Section background">
+            <text type="dropdown" identifier="color" label="Color">
+                <dropdown-item value="passion"/>
+                <dropdown-item value="crimson"/>
+                <dropdown-item value="crimson-dark"/>
+                <dropdown-item value="mahogany"/>
+                <dropdown-item value="mahogany-light"/>
+                <dropdown-item value="mahogany-dark"/>
+                <dropdown-item value="midnight"/>
+                <dropdown-item value="midnight-light"/>
+                <dropdown-item value="midnight-dark"/>
+                <dropdown-item value="majestic"/>
+                <dropdown-item value="majestic-light"/>
+                <dropdown-item value="majestic-dark"/>
+                <dropdown-item value="leather"/>
+                <dropdown-item value="leather-light"/>
+                <dropdown-item value="leather-dark"/>
+                <dropdown-item value="mint"/>
+                <dropdown-item value="mint-light"/>
+                <dropdown-item value="mint-dark"/>
+                <dropdown-item value="gray"/>
+                <dropdown-item value="dark-gray"/>
+                <dropdown-item value="black"/>
+                <dropdown-item value="full-black"/>
+            </text>
+            <text type="radiobutton" identifier="text-color" label="Text Color" default="Light">
+                <radio-item value="Light"/>
+                <radio-item value="Dark"/>
+            </text>
+            <text identifier="border-top" label="Top Border Color"/>
+            <asset type="file" identifier="image" label="Image"/>
+            <text type="radiobutton" identifier="repeat" label="Repeat image?" default="Repeat">
+                <radio-item value="Repeat"/>
+                <radio-item value="Full width"/>
+            </text>
+        </group>
+        <group identifier="container" label="Container" multiple="true">
+            <group identifier="unit" label="Unit" multiple="true">
+                <text type="dropdown" identifier="width" label="Unit Width" default="whole">
+                    <dropdown-item value="whole"/>
+                    <dropdown-item value="half"/>
+                    <dropdown-item value="one-third"/>
+                    <dropdown-item value="two-thirds"/>
+                    <dropdown-item value="one-fourth"/>
+                    <dropdown-item value="three-fourths"/>
+                    <dropdown-item value="one-fifth"/>
+                    <dropdown-item value="two-fifths"/>
+                    <dropdown-item value="three-fifths"/>
+                    <dropdown-item value="four-fifths"/>
+                </text>
+                <text type="checkbox" identifier="center-text" label="Center text" help-text="This will center the text within the unit">
+                    <checkbox-item value="Yes"/>
+                </text>
+                <text type="checkbox" identifier="center-unit" label="Center unit" help-text="This will center the unit for units that not full width">
+                    <checkbox-item value="Yes"/>
+                </text>
+                <group identifier="patternGroup" label="Pattern" multiple="true">
+                    <text type="dropdown" identifier="pattern" label="Pattern">
+                        <dropdown-item value="Text" show-fields="section/container/unit/patternGroup/text"/>
+                        <dropdown-item value="Heading 1" show-fields="section/container/unit/patternGroup/h1"/>
+                        <dropdown-item value="Heading 2" show-fields="section/container/unit/patternGroup/h2"/>
+                        <dropdown-item value="Heading 3" show-fields="section/container/unit/patternGroup/h3"/>
+                        <dropdown-item value="Heading 4" show-fields="section/container/unit/patternGroup/h4"/>
+                        <dropdown-item value="Heading 5" show-fields="section/container/unit/patternGroup/h5"/>
+                        <dropdown-item value="Heading 6" show-fields="section/container/unit/patternGroup/h6"/>
+                        <dropdown-item value="Blockquote" show-fields="section/container/unit/patternGroup/blockquote"/>
+                        <dropdown-item value="Primary Button" show-fields="section/container/unit/patternGroup/primary-button-group"/>
+                        <dropdown-item value="Secondary Button" show-fields="section/container/unit/patternGroup/secondary-button-group"/>
+                        <dropdown-item value="Button Group" show-fields="section/container/unit/patternGroup/button-group"/>
+                        <dropdown-item value="Panel" show-fields="section/container/unit/patternGroup/panel"/>
+                        <dropdown-item value="Circular Image" show-fields="section/container/unit/patternGroup/img-circular"/>
+                        <dropdown-item value="List Grid" show-fields="section/container/unit/patternGroup/list-grid"/>
+                        <dropdown-item value="Simple Form" show-fields="section/container/unit/patternGroup/simple-form"/>
+                        <dropdown-item value="Figure Image" show-fields="section/container/unit/patternGroup/figure-image"/>
+                        <dropdown-item value="Sidebar Navigation" show-fields="section/container/unit/patternGroup/navigation"/>
+                        <dropdown-item value="Pagination" show-fields="section/container/unit/patternGroup/navigation"/>
+                        <dropdown-item value="Breadcrumbs" show-fields="section/container/unit/patternGroup/navigation"/>
+                        <dropdown-item value="Metadata" show-fields="section/container/unit/patternGroup/metadata"/>
+                        <dropdown-item value="Articles" show-fields="section/container/unit/patternGroup/articles"/>
+                        <dropdown-item value="Preformatted" show-fields="section/container/unit/patternGroup/preformatted"/>
+                        <dropdown-item value="Lead Paragraph" show-fields="section/container/unit/patternGroup/lead"/>
+                    </text>
+                    <text identifier="h1" label="Heading 1"/>
+                    <text identifier="h2" label="Heading 2"/>
+                    <text identifier="h3" label="Heading 3"/>
+                    <text identifier="h4" label="Heading 4"/>
+                    <text identifier="h5" label="Heading 5"/>
+                    <text identifier="h6" label="Heading 6"/>
+                    <text wysiwyg="true" identifier="text" label="Text"/>
+                    <text wysiwyg="true" identifier="panel" label="Panel" default="This is a panel. Panels are used to add some emphasis to a piece of content." help-text="A panel is used to add emphasis to a piece of content or navigation. The .panel class will remove the top and bottom margins from the first and last child elements of anything you put inside of it."/>
+                    <text wysiwyg="true" identifier="list-grid" label="List Grid" multiple="true" maximum-number="4" minimum-number="3"/>
+                    <text multi-line="true" identifier="blockquote" label="Blockquote"/>
+                    <group identifier="primary-button-group" label="Primary Button">
+                        <text identifier="primary-button-text" label="Text"/>
+                        <text identifier="primary-button-url" label="URL"/>
+                        <text type="checkbox" identifier="new-window" label="Open in new window">
+                            <checkbox-item value="Yes"/>
+                        </text>
+                    </group>
+                    <group identifier="secondary-button-group" label="Secondary Button">
+                        <text identifier="secondary-button-text" label="Text"/>
+                        <text identifier="secondary-button-url" label="URL"/>
+                        <text type="checkbox" identifier="new-window" label="Open in new window">
+                            <checkbox-item value="Yes"/>
+                        </text>
+                    </group>
+                    <group identifier="button-group" label="Button Group">
+                        <group identifier="button" label="Button" multiple="true">
+                            <text identifier="button-group-text" label="Text"/>
+                            <text identifier="button-group-url" label="URL"/>
+                            <text type="checkbox" identifier="new-window" label="Open in new window">
+                                <checkbox-item value="Yes"/>
+                            </text>
+                        </group>
+                    </group>
+                    <asset type="file" identifier="img-circular" label="Circular Image" help-text="Will make an image circular"/>
+                    <group identifier="figure-image" label="Figure Image">
+                        <asset type="file" identifier="image" label="Image"/>
+                        <text identifier="caption" label="Caption"/>
+                    </group>
+                    <group identifier="simple-form" label="Simple Form">
+                        <text type="radiobutton" identifier="method" label="Method" default="POST">
+                            <radio-item value="POST"/>
+                            <radio-item value="GET"/>
+                        </text>
+                        <text identifier="action" label="Action"/>
+                        <group identifier="field" label="Field" multiple="true">
+                            <text type="dropdown" identifier="type" label="Type">
+                                <dropdown-item value="text" show-fields="section/container/unit/patternGroup/simple-form/field/text"/>
+                                <dropdown-item value="checkbox" show-fields="section/container/unit/patternGroup/simple-form/field/checkboxes"/>
+                                <dropdown-item value="radio" show-fields="section/container/unit/patternGroup/simple-form/field/radiobuttons"/>
+                                <dropdown-item value="textarea" show-fields="section/container/unit/patternGroup/simple-form/field/textarea"/>
+                                <dropdown-item value="dropdown" show-fields="section/container/unit/patternGroup/simple-form/field/dropdown"/>
+                                <dropdown-item value="submit" show-fields="section/container/unit/patternGroup/simple-form/field/submit"/>
+                            </text>
+                            <text type="dropdown" identifier="width" label="Field Width" default="whole">
+                                <dropdown-item value="whole"/>
+                                <dropdown-item value="half"/>
+                                <dropdown-item value="one-third"/>
+                                <dropdown-item value="two-thirds"/>
+                                <dropdown-item value="one-fourth"/>
+                                <dropdown-item value="three-fourths"/>
+                                <dropdown-item value="one-fifth"/>
+                                <dropdown-item value="two-fifths"/>
+                                <dropdown-item value="three-fifths"/>
+                                <dropdown-item value="four-fifths"/>
+                            </text>
+                            <group identifier="text" label="Text Input">
+                                <text identifier="label" label="Label"/>
+                                <text identifier="name" label="Name"/>
+                                <text identifier="value" label="Value"/>
+                                <text identifier="placeholder" label="Placeholder"/>
+                                <text identifier="class" label="Class (optional)"/>
+                            </group>
+                            <group identifier="checkboxes" label="Checkboxes">
+                                <text identifier="fieldset" label="Fieldset Label"/>
+                                <text identifier="name" label="Name"/>
+                                <group identifier="checkbox" label="Checkbox" multiple="true">
+                                    <text identifier="label" label="Label"/>
+                                    <text identifier="id" label="ID"/>
+                                </group>
+                            </group>
+                            <group identifier="radiobuttons" label="Radio Buttons">
+                                <text identifier="fieldset" label="Fieldset Label"/>
+                                <text identifier="name" label="Name"/>
+                                <group identifier="radiobutton" label="Radio Button" multiple="true">
+                                    <text identifier="Label"/>
+                                    <text identifier="id" label="ID"/>
+                                </group>
+                            </group>
+                            <group identifier="textarea" label="Textarea">
+                                <text identifier="label" label="Label"/>
+                                <text identifier="name" label="Name"/>
+                                <text multi-line="true" identifier="placeholder" label="Placeholder"/>
+                                <text identifier="class" label="Class (optional)"/>
+                            </group>
+                            <group identifier="dropdown" label="Dropdown">
+                                <text identifier="label" label="Label"/>
+                                <text identifier="name" label="Name"/>
+                                <text identifier="id" label="ID"/>
+                                <group identifier="options" label="Options" multiple="true">
+                                    <text identifier="label" label="Label" help-text="The label that's displayed in the dropdown"/>
+                                    <text identifier="value" label="Value" help-text="The value that gets submitted"/>
+                                </group>
+                            </group>
+                            <group identifier="submit" label="Submit Button">
+                                <text identifier="name" label="Name"/>
+                                <text identifier="value" label="Value"/>
+                            </group>
+                        </group>
+                    </group>
+                    <group identifier="navigation" label="Navigation">
+                        <text type="radiobutton" identifier="source" label="Data source" default="Custom" help-text="Do you want to enter values or have the navigation generated automatically based on metadata">
+                            <radio-item value="Automated"/>
+                            <radio-item value="Custom" show-fields="section/container/unit/patternGroup/navigation/item"/>
+                        </text>
+                        <group identifier="item" label="Item" multiple="true">
+                            <text identifier="label" label="Label"/>
+                            <text identifier="url" label="URL"/>
+                            <text type="checkbox" identifier="active" label="Active?">
+                                <checkbox-item value="Yes"/>
+                            </text>
+                        </group>
+                    </group>
+                    <group identifier="metadata" label="Metadata">
+                        <group identifier="description" label="Description" multiple="true">
+                            <text identifier="term" label="Term"/>
+                            <text wysiwyg="true" identifier="description" label="Description"/>
+                        </group>
+                    </group>
+                    <group identifier="articles" label="Articles">
+                        <group identifier="article" label="Article" multiple="true">
+                            <text identifier="url" label="URL"/>
+                            <text identifier="title" label="Title"/>
+                            <text type="calendar" identifier="date" label="Date"/>
+                            <text multi-line="true" identifier="intro" label="Intro"/>
+                        </group>
+                    </group>
+                    <group identifier="preformatted" label="Preformatted text">
+                        <text multi-line="true" identifier="text" label="Text"/>
+                    </group>
+                    <group identifier="lead" label="Lead paragraph">
+                        <text multi-line="true" identifier="text" label="Text" default="Use this for introductory paragraphs or statements. Try to stick to one per page."/>
+                    </group>
+                </group>
+            </group>
+        </group>
+    </group>
 </system-data-structure>
