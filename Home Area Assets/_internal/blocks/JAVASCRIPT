@@ -1,2 +1,5 @@
-<script src="https://assets.uits.iu.edu/javascript/jquery.min.js"></script>
-<script src="https://assets.uits.iu.edu/javascript/scripts.js"></script>
+<script src="/js/jquery.js"></script>
+<script src="/js/foundation.js"></script>
+<script src="/js/foundation.offcanvas.js"></script>
+<script src="/js/jquery.ba-throttle-debounce.min.js"></script>
+<script src="/js/scripts.js"></script>
