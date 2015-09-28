@@ -1,10 +1,9 @@
 <section class="content">
     <div class="container">
         <div class="unit one-fifth">
-            <div class="sticky-wrapper">
-                <nav role="navigation" class="nav-sidebar">
-                    <h2 class="h4-style bold">Other articles</h2>
-                    <ul id="spy-nav">
+            <aside class="section-nav__wrapper">
+                <nav class="section-nav">
+                    <ul class="section-nav__list">
                         #set($posts = $_.query().indexableOnly(true).publishableOnly(true).byContentType('Post').maxResults(50).sortBy('startDate').sortDirection('desc').execute())
                         #foreach($post in $posts)
                             ##skip the base asset
@@ -12,9 +11,9 @@
                                 #set($title = $post.metadata.title.replaceAll('&amp;', '&').replaceAll('&', '&amp;'))
                                 #set($id = $title.replaceAll("[^A-Za-z0-9]", "").toLowerCase())
                                 #if($currentPage.identifer.id != $post.identifer.id)
-                                    <li><a href="$post.path">$!title</a></li>
+                                    <li class="section-nav__item"><a href="$post.path">$!title</a></li>
                                 #else
-                                    <li id="active"><a href="$post.path">$!title</a></li>
+                                    <li class="section-nav__item current"><a href="$post.path">$!title</a></li>
                                 #end
                                 
                                 ##$_DateTool.format("MMMMM dd, yyyy", $post.metadata.startDate)
@@ -22,7 +21,7 @@
                         #end
                     </ul>
                 </nav>
-            </div> 
+            </aside> 
         </div>
         #set($startDate = $_DateTool.format("MMMMM dd yyyy", $currentPage.metadata.startDate))
         #set($title = $currentPage.metadata.title)
