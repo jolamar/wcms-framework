@@ -5,5 +5,6 @@
 <h1 class="campus"><a href="http://www.iu.edu/" title="Indiana University"><img alt=" " height="73" src="//assets.uits.iu.edu/image/trident-tab.gif" width="64" /> <span class="show-on-desktop" itemprop="name sourceOrganization provider">Indiana University</span> <span class="show-on-tablet" itemprop="name sourceOrganization provider">Indiana University</span> <span class="show-on-mobile" itemprop="name sourceOrganization provider">Indiana University</span></a></h1>
 </div>
 </div>
+<div id="toggles"><a class="off-canvas__trigger right-off-canvas-toggle" href="#off-canvas">Menu</a></div>
 </div>
 </div>
