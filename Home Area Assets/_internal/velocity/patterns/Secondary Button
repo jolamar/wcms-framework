@@ -1,0 +1,7 @@
+#macro(SecondaryButton)
+#set($newWindow = "_self")
+#if($_XPathTool.selectSingleNode($pattern, "secondary-button-group/new-window/value"))
+    #set($newWindow = "_blank")
+#end
+<a target="$newWindow" class="button-secondary $!reverse" href="${_XPathTool.selectSingleNode($pattern, "secondary-button-group/secondary-button-url").value}">$_XPathTool.selectSingleNode($pattern, "secondary-button-group/secondary-button-text").value</a>
+#end

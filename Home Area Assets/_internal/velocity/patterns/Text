@@ -1,0 +1,4 @@
+#macro(Text)
+#set($text = $_XPathTool.selectSingleNode($pattern, "text"))
+$_SerializerTool.serialize($text, true)
+#end

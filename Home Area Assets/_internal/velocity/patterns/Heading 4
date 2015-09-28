@@ -1,0 +1,3 @@
+#macro(Heading4)
+<h4>$_XPathTool.selectSingleNode($pattern, "h4").value</h4>
+#end

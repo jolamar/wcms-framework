@@ -1,0 +1,3 @@
+#macro(Blockquote)
+<blockquote>$_XPathTool.selectSingleNode($pattern, "blockquote").value</blockquote>
+#end

@@ -1,0 +1,8 @@
+#macro(ListGrid)
+#set($items = $_XPathTool.selectNodes($pattern, "list-grid"))
+<ul class="list-grid-thirds">
+#foreach($item in $items)
+    <li>$_SerializerTool.serialize($item, true)</li>                               
+#end
+</ul>
+#end

@@ -1,0 +1,82 @@
+#macro(SimpleForm)
+    #set($method = $_XPathTool.selectSingleNode($pattern, "simple-form/method").value)  
+    #set($action = $_XPathTool.selectSingleNode($pattern, "simple-form/action").value)  
+    #set($fields = $_XPathTool.selectNodes($pattern, "simple-form/field"))
+    <form action="$!{action}" method="$!{method}">
+        <div class="container">
+        #foreach($field in $fields)
+            #set($width = "") 
+            #set($width = $_XPathTool.selectSingleNode($field, "width").value)   
+            
+            <div class="unit $!{width}">
+                #set($type = "") 
+                #set($type = $_XPathTool.selectSingleNode($field, "type").value)   
+                
+                ## Text input
+                #if($type == "text")
+                    #set($label = "")
+                    #set($label = $_XPathTool.selectSingleNode($field, "text/label").value)
+                    #set($name = "")
+                    #set($name = $_XPathTool.selectSingleNode($field, "text/name").value)
+                    #set($value = "")
+                    #set($value = $_XPathTool.selectSingleNode($field, "text/value").value)
+                    #set($placeholder = false)
+                    #set($placeholder = $_XPathTool.selectSingleNode($field, "text/placeholder").value)
+                    #set($class = "")
+                    #set($class = $_XPathTool.selectSingleNode($field, "text/class").value)
+                    <label for="$!{name}">$!label</label>
+                    <input type="text" id="$!{name}" name="$!{name}" class="auto-select $!{class}" #if($placeholder) placeholder="$!{placeholder}" #end />  
+             
+                
+                ## Textarea
+                #elseif($type == "textarea")
+                    #set($label = "")
+                    #set($label = $_XPathTool.selectSingleNode($field, "textarea/label").value)
+                    #set($name = "")
+                    #set($name = $_XPathTool.selectSingleNode($field, "textarea/name").value)
+                    #set($value = "")
+                    #set($value = $_XPathTool.selectSingleNode($field, "textarea/value").value)
+                    #set($placeholder = false)
+                    #set($placeholder = $_XPathTool.selectSingleNode($field, "textarea/placeholder").value)
+                    #set($class = "")
+                    #set($class = $_XPathTool.selectSingleNode($field, "textarea/class").value)
+                    <label for="$!{name}">$!label</label>
+                    <textarea id="$!{name}" class="auto-select $!{class}" name="$!{name}">$!placeholder</textarea>  
+                
+                
+                ## Dropdowns
+                #elseif($type == "dropdown")
+                    #set($label = "")
+                    #set($label = $_XPathTool.selectSingleNode($field, "dropdown/label").value)
+                    #set($name = "")
+                    #set($name = $_XPathTool.selectSingleNode($field, "dropdown/name").value)
+                    #set($id = "")
+                    #set($id = $_XPathTool.selectSingleNode($field, "dropdown/id").value)
+                    #set($options = false)
+                    #set($options = $_XPathTool.selectNodes($field, "dropdown/options"))
+                    <label for="$!{id}">$!label</label>
+                    <select id="$!{id}" name="$!{name}">
+                        #foreach($option in $options)
+                            #set($label = "")
+                            #set($label = $_XPathTool.selectSingleNode($option, "label").value)
+                            #set($value = "")
+                            #set($value = $_XPathTool.selectSingleNode($option, "value").value)
+                            <option value="$!{value}">$!label</option>
+                        #end
+                    </select>   
+                
+                
+                ## Submit button
+                #elseif($type == "submit")
+                    #set($name = "")
+                    #set($name = $_XPathTool.selectSingleNode($field, "submit/name").value)
+                    #set($value = "")
+                    #set($value = $_XPathTool.selectSingleNode($field, "submit/value").value)
+                   
+                    <input type="submit" id="$!{name}" name="$!{name}" value="$!{value}" />  
+                #end
+            </div>
+        #end
+        </div>
+    </form>
+#end

@@ -1,0 +1,6 @@
+#macro(Panel)
+#set($panel = $_XPathTool.selectSingleNode($pattern, "panel"))
+<div class="panel">
+$_SerializerTool.serialize($panel, true)
+</div>
+#end

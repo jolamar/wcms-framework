@@ -1,0 +1,12 @@
+#macro(ButtonGroup)
+#set($buttons = $_XPathTool.selectNodes($pattern, "button-group/button"))
+<ul class="button-group">
+#foreach($button in $buttons)
+    #set($newWindow = "_self")
+    #if($_XPathTool.selectSingleNode($button, "new-window/value"))
+        #set($newWindow = "_blank")
+    #end
+    <li><a target="$newWindow" href="${_XPathTool.selectSingleNode($button, "button-group-url").value}">$_XPathTool.selectSingleNode($button, "button-group-text").value</a></li>
+#end
+</ul>
+#end

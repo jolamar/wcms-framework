@@ -1,0 +1,58 @@
+#macro(Pagination)
+#set($source = $_XPathTool.selectSingleNode($pattern, "navigation/source").value)
+#if($source == "Automated")
+
+    #set($pages = $currentPage.parentFolder.children)
+    <nav role="navigation" class="pagination">
+        <ul>
+            #set($output = "")
+            #set($prevFound = false)
+            #set($currentFound = false)
+            #set($nextFound = false)
+            #set($prev = "<li>&#171; Previous</li>")
+            #set($next = "<li>Next &#187;</li>")
+            #foreach($page in $pages)
+                #if($page.metadata.getDynamicField("show-in-sidebar").value == "Yes")
+                    #if($nextFound)
+                        #set($next = "<li><a href='$page.path'>Next &#187;</a></li>")
+                        #set($nextFound = false)
+                    #end
+                    #set($title = $page.metadata.title.replaceAll('&amp;', '&').replaceAll('&', '&amp;'))
+                    #set($title = $page.metadata.getDynamicField("sidebar-title").value.replaceAll('&amp;', '&').replaceAll('&', '&amp;'))
+                    #set($id = $title.replaceAll("[^A-Za-z0-9]", "").toLowerCase())
+                    #if($currentPage.identifer.id != $page.identifer.id)
+                        #set($output = $output + "<li><a href='$page.path'>$!title</a></li>")
+                    #else
+                        #set($output = $output + "<li><a class='active' href='$page.path'>$!title</a></li>")
+                        #set($prevFound = true)
+                        #set($currentFound = true)
+                        #set($nextFound = true)
+                    #end
+                    #if(!$prevFound)
+                        #set($prev = "<li><a href='$page.path'>&#171; Previous</a></li>")
+                    #end
+                #end
+            #end
+            $prev
+            $output
+            $next
+        </ul>
+    </nav> 
+    
+#else    
+    #set($items = $_XPathTool.selectNodes($pattern, "navigation/item"))
+    <nav role="navigation" class="pagination">
+        <ul>
+            #foreach($item in $items)
+                #set($label = "")
+                #set($label = $_XPathTool.selectSingleNode($item, "label").value)
+                #set($url = "")
+                #set($url = $_XPathTool.selectSingleNode($item, "url").value)
+                #set($active = false)
+                #set($active = $_XPathTool.selectSingleNode($item, "active/value").value)
+                <li><a #if($active) class="active" #end href="$!{url}">#htmlEntities($!label)</a></li>
+            #end
+        </ul>
+    </nav>  
+#end
+#end

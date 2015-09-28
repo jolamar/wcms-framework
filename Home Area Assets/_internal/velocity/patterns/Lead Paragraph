@@ -1,0 +1,3 @@
+#macro(LeadParagraph)
+<p class="lead">$_XPathTool.selectSingleNode($pattern, "lead/text").value</p>
+#end

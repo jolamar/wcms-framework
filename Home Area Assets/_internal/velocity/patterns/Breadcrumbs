@@ -1,0 +1,52 @@
+#macro(Breadcrumbs)
+#set($source = $_XPathTool.selectSingleNode($pattern, "navigation/source").value)
+#if($source == "Automated")
+    <nav role="navigation" class="breadcrumbs">
+        <ul>
+            #if($currentPage.parentFolder.parentFolder.path)
+                #set($page = $_.locatePage("${currentPage.parentFolder.parentFolder.path}index"))
+                #set($title = $page.metadata.title.replaceAll('&amp;', '&').replaceAll('&', '&amp;'))
+                #set($title = $page.metadata.getDynamicField("sidebar-title").value.replaceAll('&amp;', '&').replaceAll('&', '&amp;'))
+                <li><a href="$page.path">Home</a></li>
+            #end                                            
+            
+            
+            #if($currentPage.parentFolder.path)
+                #set($page = $_.locatePage("${currentPage.parentFolder.path}/index"))
+                #set($title = $page.metadata.title.replaceAll('&amp;', '&').replaceAll('&', '&amp;'))
+                #set($title = $page.metadata.getDynamicField("sidebar-title").value.replaceAll('&amp;', '&').replaceAll('&', '&amp;'))
+                #if($currentPage.name != 'index')
+                    <li><a href="$page.path">$!title</a></li>
+                #else
+                    <li><a class="active" href="$page.path">$!title</a></li>
+                #end
+                
+            #end 
+            
+            #if($currentPage.name != 'index')
+                #set($title = $currentPage.metadata.title.replaceAll('&amp;', '&').replaceAll('&', '&amp;'))
+                #set($title = $currentPage.metadata.getDynamicField("sidebar-title").value.replaceAll('&amp;', '&').replaceAll('&', '&amp;'))
+                <li><a class="active" href="$currentPage.path">$!title</a></li>
+            #end
+            
+        </ul>
+    </nav> 
+    
+#else
+
+    #set($items = $_XPathTool.selectNodes($pattern, "navigation/item"))
+    <nav role="navigation" class="breadcrumbs">
+        <ul>
+            #foreach($item in $items)
+                #set($label = "")
+                #set($label = $_XPathTool.selectSingleNode($item, "label").value)
+                #set($url = "")
+                #set($url = $_XPathTool.selectSingleNode($item, "url").value)
+                #set($active = false)
+                #set($active = $_XPathTool.selectSingleNode($item, "active/value").value)
+                <li><a #if($active) class="active" #end href="$!{url}">#htmlEntities($!label)</a></li>
+            #end
+        </ul>
+    </nav>   
+#end
+#end

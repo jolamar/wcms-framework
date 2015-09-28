@@ -1,0 +1,3 @@
+#macro(Preformatted)
+<pre>$_XPathTool.selectSingleNode($pattern, "preformatted/text").value</pre>
+#end

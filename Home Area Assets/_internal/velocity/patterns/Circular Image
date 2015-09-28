@@ -1,0 +1,6 @@
+#macro(CircularImage)
+#set($path = "[system-asset]" + $_XPathTool.selectSingleNode($pattern, "img-circular/link").value + "[/system-asset]")
+<span class="img-circular">
+    <img src="$!path" />
+</span>
+#end

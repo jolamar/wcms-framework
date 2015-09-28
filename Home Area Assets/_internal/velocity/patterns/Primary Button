@@ -1,0 +1,7 @@
+#macro(PrimaryButton)
+#set($newWindow = "_self")
+#if($_XPathTool.selectSingleNode($pattern, "primary-button-group/new-window/value"))
+    #set($newWindow = "_blank")
+#end
+<a target="$newWindow" class="button-primary $!reverse" href="${_XPathTool.selectSingleNode($pattern, "primary-button-group/primary-button-url").value}">$_XPathTool.selectSingleNode($pattern, "primary-button-group/primary-button-text").value</a>
+#end

@@ -1,0 +1,12 @@
+#macro(Metadata)
+#set($descriptions = $_XPathTool.selectNodes($pattern, "metadata/description"))
+<dl class="metadata">
+    #foreach($description in $descriptions)
+        #set($term = "")
+        #set($term = $_XPathTool.selectSingleNode($description, "term").value)
+        #set($description = $_XPathTool.selectSingleNode($description, "description"))
+        <dt>$!term</dt>
+        <dd>#wysiwyg($!description)</dd>
+    #end
+</dl>
+#end

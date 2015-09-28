@@ -1,0 +1,43 @@
+#macro(SidebarNavigation)
+#set($source = $_XPathTool.selectSingleNode($pattern, "navigation/source").value)
+#if($source == "Automated")
+
+    #set($pages = $currentPage.parentFolder.children)
+    <aside class="section-nav__wrapper">
+        <nav class="section-nav">
+            <ul class="section-nav__list">
+                #foreach($page in $pages)
+                    #if($page.metadata.getDynamicField("show-in-sidebar").value == "Yes")
+                        #set($title = $page.metadata.title.replaceAll('&amp;', '&').replaceAll('&', '&amp;'))
+                        #set($title = $page.metadata.getDynamicField("sidebar-title").value.replaceAll('&amp;', '&').replaceAll('&', '&amp;'))
+                        #set($id = $title.replaceAll("[^A-Za-z0-9]", "").toLowerCase())
+                        #if($currentPage.identifer.id != $page.identifer.id)
+                            <li class="section-nav__item"><a href="$page.path">$!title</a></li>
+                        #else
+                            <li class="section-nav__item current"><a href="$page.path">$!title</a></li>
+                        #end
+                    #end
+                #end
+            </ul>
+        </nav> 
+    </aside>
+    
+#else
+    #set($items = $_XPathTool.selectNodes($pattern, "navigation/item"))
+    <aside class="section-nav__wrapper">
+        <nav class="section-nav">
+            <ul class="section-nav__list">
+                #foreach($item in $items)
+                    #set($label = "")
+                    #set($label = $_XPathTool.selectSingleNode($item, "label").value)
+                    #set($url = "")
+                    #set($url = $_XPathTool.selectSingleNode($item, "url").value)
+                    #set($active = false)
+                    #set($active = $_XPathTool.selectSingleNode($item, "active/value").value)
+                    <li #if($active) class="section-nav__item current" #else class="section-nav__item" #end ><a href="$!{url}">#htmlEntities($!label)</a></li>
+                #end
+            </ul>
+        </nav> 
+    </aside>
+#end
+#end

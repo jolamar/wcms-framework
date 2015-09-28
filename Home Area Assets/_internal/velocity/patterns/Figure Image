@@ -1,0 +1,8 @@
+#macro(FigureImage)
+#set($path = "[system-asset]" + $_XPathTool.selectSingleNode($pattern, "figure-image/image/link").value + "[/system-asset]")
+#set($caption = $_XPathTool.selectSingleNode($pattern, "figure-image/caption").value)
+<figure class="img-figure">
+   <img src="$!path" />
+   <figcaption class="img-figure__caption">$!caption</figcaption> 
+</figure>
+#end
