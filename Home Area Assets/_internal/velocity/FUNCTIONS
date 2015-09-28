@@ -12,3 +12,28 @@
 
 $_DateTool.format("MMMMM dd yyyy", $_DateTool.toDate("m-d-y", $date)) 
 #end
+
+## IMPORT ALL THE PATTERNS
+#import('/_internal/velocity/patterns/Articles')
+#import('/_internal/velocity/patterns/Blockquote')
+#import('/_internal/velocity/patterns/Breadcrumbs')
+#import('/_internal/velocity/patterns/Button Group')
+#import('/_internal/velocity/patterns/Circular Image')
+#import('/_internal/velocity/patterns/Figure Image')
+#import('/_internal/velocity/patterns/Heading 1')
+#import('/_internal/velocity/patterns/Heading 2')
+#import('/_internal/velocity/patterns/Heading 3')
+#import('/_internal/velocity/patterns/Heading 4')
+#import('/_internal/velocity/patterns/Heading 5')
+#import('/_internal/velocity/patterns/Heading 6')
+#import('/_internal/velocity/patterns/Lead Paragraph')
+#import('/_internal/velocity/patterns/List Grid')
+#import('/_internal/velocity/patterns/Metadata')
+#import('/_internal/velocity/patterns/Pagination')
+#import('/_internal/velocity/patterns/Panel')
+#import('/_internal/velocity/patterns/Preformatted')
+#import('/_internal/velocity/patterns/Primary Button')
+#import('/_internal/velocity/patterns/Secondary Button')
+#import('/_internal/velocity/patterns/Sidebar Navigation')
+#import('/_internal/velocity/patterns/Simple Form')
+#import('/_internal/velocity/patterns/Text')
