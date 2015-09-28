@@ -1,6 +1,7 @@
 <!--
 BRANDING: [Block] _internal/blocks/BRANDING
-HEADER: [Block] _internal/blocks/CSS
+CSS: [Block] _internal/blocks/CSS
+HEADER: [Format] _internal/velocity/HEADER
 INTRO: [Format] _internal/velocity/INTRO
 DEFAULT: [Format] _internal/velocity/POST
 FOOTER: [Block] _internal/blocks/FOOTER
@@ -18,12 +19,16 @@ JAVASCRIPT-ADDITIONAL: [Empty]
         <system-page-meta-keywords/>
         <system-region name="CSS"/>
     </head>
-    <body class="style-page" cz-shortcut-listen="true">
-        <system-region name="BRANDING"/>
-        <system-region name="HEADER"/>
-        <system-region name="INTRO"/>
-        <system-region name="DEFAULT"/>
-        <system-region name="FOOTER"/>
-        <system-region name="JAVASCRIPT"/>
+    <body>
+        <div class="off-canvas-wrap">
+            <div class="inner-wrap">
+                <system-region name="BRANDING"/>
+                <system-region name="HEADER"/>
+                <system-region name="INTRO"/>
+                <system-region name="DEFAULT"/>
+                <system-region name="FOOTER"/>
+                <system-region name="JAVASCRIPT"/>
+            </div>
+        </div>
     </body>
 </html>
