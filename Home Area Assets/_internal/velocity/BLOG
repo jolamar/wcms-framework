@@ -1,3 +1,5 @@
+## this is a simple blog
+
 #set($posts = $_.query().indexableOnly(true).publishableOnly(true).byContentType('Post').maxResults(50).sortBy('startDate').sortDirection('desc').execute())
 
 <section class="content">
